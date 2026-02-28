@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/posts}" th:method="post" th:object="${postForm}">
+    <input type="text" th:field="*{title}">
+    <textarea th:field="*{content}"></textarea>
+    <button type="submit">投稿</button>
+</form>
+
+</body>
+</html>
