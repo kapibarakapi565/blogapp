@@ -2,6 +2,7 @@ package com.heshiki.blogapp;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,13 @@ public class PostController {
         LocalDateTime now = LocalDateTime.now();
         postRepository.insert(postForm.getTitle(), postForm.getContent(), now, now);
         return "redirect:/";
+    }
+
+    @GetMapping
+    public String showPosts(Model model){
+        var postList = postRepository.findAll();
+        model.addAttribute("postList", postList);
+        return "index";
     }
 
 
