@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+<h1>ブログ投稿フォーム</h1>
 <form th:action="@{/posts}" th:method="post" th:object="${postForm}">
     <input type="text" th:field="*{title}">
     <textarea th:field="*{content}"></textarea>
