@@ -2,6 +2,7 @@ package com.heshiki.blogapp;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 
 import java.time.LocalDateTime;
@@ -18,4 +19,6 @@ public interface PostRepository {
                 @org.apache.ibatis.annotations.Param("content") String content,
                 @org.apache.ibatis.annotations.Param("createdAt") LocalDateTime createdAt,
                 @org.apache.ibatis.annotations.Param("updatedAt") LocalDateTime updatedAt);
+    @Select("select * from posts")
+    List<PostEntity> findAll();
 }
