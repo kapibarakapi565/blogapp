@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDateTime;
@@ -32,6 +33,28 @@ public class PostController {
         model.addAttribute("postList", postList);
         return "index";
     }
+
+    @GetMapping("/posts/{id}")
+    public String postDetail(@PathVariable long id, Model model){
+        var post = postRepository.findById(id);
+        model.addAttribute("post", post);
+        return "detail";
+    }
+
+    @PostMapping("/posts/{id}/update")
+    public String updateIssue(@PathVariable long id, PostForm postForm){
+        LocalDateTime now = LocalDateTime.now();
+        postRepository.update(id, postForm.getTitle(), postForm.getContent(), now);
+        return "redirect:/";
+    }
+
+    @PostMapping("posts/{id}/delete")
+    public String deleteIssue(@PathVariable Long id){
+        postRepository.deleteById(id);
+        return "redirect:/";
+    }
+
+
 
 
 }
