@@ -1,8 +1,6 @@
 package com.heshiki.blogapp;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 
 import java.time.LocalDateTime;
@@ -21,4 +19,16 @@ public interface PostRepository {
                 @org.apache.ibatis.annotations.Param("updatedAt") LocalDateTime updatedAt);
     @Select("select * from posts")
     List<PostEntity> findAll();
+
+    @Select("select * from posts where id = #{id}")
+    PostEntity findById(long id);
+
+    @Update("UPDATE posts SET title = #{title}, content = #{content}, updated_at = #{updatedAt} WHERE id = #{id}")
+    void update(@Param("id") long id,
+                @Param("title") String title,
+                @Param("content") String content,
+                @Param("updatedAt") LocalDateTime updatedAt);
+
+    @Delete("delete from posts where id=#{id}")
+    void deleteById(long id);
 }
